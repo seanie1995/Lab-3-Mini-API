@@ -20,12 +20,12 @@ namespace Lab_3_Mini_API
 
             app.MapGet("/AllPersons", (ApplicationContext context) =>
             {
-                return Results.Json(context.Persons.Select(p => new {p.LastName, p.FirstName, p.PhoneNumber}).ToArray());
+                return Results.Json(context.Persons.Select(p => new {p.LastName, p.FirstName }).ToArray());
             });
 
             app.MapGet("/AllInterests", (ApplicationContext context) =>
             {
-                return Results.Json(context.Interests.Select(p => new {p.InterestName, p.InterestDescription}).ToArray());
+                return Results.Json(context.Interests.Select(p => new {p.Name, p.Description}).ToArray());
             });
 
             app.MapGet("/{LastName}", (ApplicationContext context, string lastName) => 
@@ -37,7 +37,20 @@ namespace Lab_3_Mini_API
 
             app.MapGet("/{lastName}/interests", (ApplicationContext context, string lastName) =>
             {
-                
+                var interests = context.InterestLink
+                    .Include(il => il.Interest)  // Include the related Interest
+                    .Where(il => il.Person.LastName == lastName)
+                    .Select(il => il.Interest)
+                    .ToList();
+
+                if (interests == null)
+                {
+                    return Results.NotFound();
+                }
+
+                // Do something with the 'interests' list, for example, return it as JSON
+                return Results.Json(interests);
+
             });
          
             app.Run();
