@@ -4,9 +4,7 @@
     {
         public int Id { get; set; }
 
-        public int PersonId { get; set; }
-
-        public int InterestId { get; set; }
+        
 
         public virtual Persons Person { get; set; }
 
