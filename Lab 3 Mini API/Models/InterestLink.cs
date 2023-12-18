@@ -2,11 +2,18 @@
 {
     public class InterestLink
     {
-        public int LinkID { get; set; }
-        public int PersonID_FK { get; set; }
-        public int InterestID_FK { get; set; }
+        public int Id { get; set; }
 
-        public virtual Persons Persons { get; set; }
-        public virtual Interests Interests { get; set; }
+        public int PersonId { get; set; }
+
+        public int InterestId { get; set; }
+
+        public virtual Persons Person { get; set; }
+
+        public virtual Interests Interest { get; set; }
+
+
+
+
     }
 }
