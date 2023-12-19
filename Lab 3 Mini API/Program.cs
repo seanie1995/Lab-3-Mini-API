@@ -21,18 +21,13 @@ namespace Lab_3_Mini_API
              
             app.MapGet("/AllPersons", (ApplicationContext context) =>
             {
-                return Results.Json(context.Persons.Select(p => new {p.LastName, p.FirstName }).ToArray());
+                return Results.Json(context.Persons.Select(p => new {p.Id, p.FirstName, p.LastName, p.phoneNumber, p.Interests.Count}).ToArray());
             });
 
             app.MapGet("/AllLinks", (ApplicationContext context) =>
             {
                 return Results.Json(context.InterestUrls.ToArray());
-            });
-
-            //app.MapGet("/AllLinks", (ApplicationContext context) =>
-            //{
-            //    return Results.Json(context.InterestUrls.Select(p => new { p.Id, p.Url }).ToArray());
-            //});
+            });        
 
             app.MapGet("/AllInterests", (ApplicationContext context) =>
             {
