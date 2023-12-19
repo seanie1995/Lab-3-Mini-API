@@ -29,10 +29,10 @@ namespace Lab_3_Mini_API
                 return Results.Json(context.InterestUrls.ToArray());
             });
 
-            //app.MapGet("/AllLinks", (ApplicationContext context) =>
-            //{
-            //    return Results.Json(context.InterestUrls.Select(p => new { p.Id, p.Url }).ToArray());
-            //});
+            app.MapGet("/AllLinks", (ApplicationContext context) =>
+            {
+                return Results.Json(context.InterestUrls.Select(p => new { p.Id, p.Url }).ToArray());
+            });
 
             app.MapGet("/AllInterests", (ApplicationContext context) =>
             {
@@ -84,6 +84,8 @@ namespace Lab_3_Mini_API
                 return Results.Json(links);
 
             });
+
+            // Add new interest to specific person
 
             app.MapPost("/{lastName}/interests/{id}", (ApplicationContext context, string lastName, int id) =>
             {              
