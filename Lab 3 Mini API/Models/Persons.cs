@@ -10,10 +10,6 @@ namespace Lab_3_Mini_API.Models
         public string LastName { get; set; }
              
         public virtual ICollection<Interests> Interests { get; set; }   
-
-
-
-
-
+      
     }
 }

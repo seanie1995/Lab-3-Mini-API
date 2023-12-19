@@ -36,29 +36,6 @@ namespace Lab_3_Mini_API.Migrations
                     b.ToTable("InterestsPersons");
                 });
 
-            modelBuilder.Entity("Lab_3_Mini_API.Models.InterestLink", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("InterestId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PersonId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("InterestId");
-
-                    b.HasIndex("PersonId");
-
-                    b.ToTable("InterestLink");
-                });
-
             modelBuilder.Entity("Lab_3_Mini_API.Models.Interests", b =>
                 {
                     b.Property<int>("Id")
@@ -75,13 +52,31 @@ namespace Lab_3_Mini_API.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.HasKey("Id");
+
+                    b.ToTable("Interests");
+                });
+
+            modelBuilder.Entity("Lab_3_Mini_API.Models.InterestUrl", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("InterestsId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Url")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Interests");
+                    b.HasIndex("InterestsId");
+
+                    b.ToTable("InterestUrls");
                 });
 
             modelBuilder.Entity("Lab_3_Mini_API.Models.Persons", b =>
@@ -120,33 +115,20 @@ namespace Lab_3_Mini_API.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Lab_3_Mini_API.Models.InterestLink", b =>
+            modelBuilder.Entity("Lab_3_Mini_API.Models.InterestUrl", b =>
                 {
-                    b.HasOne("Lab_3_Mini_API.Models.Interests", "Interest")
-                        .WithMany("InterestLinks")
-                        .HasForeignKey("InterestId")
+                    b.HasOne("Lab_3_Mini_API.Models.Interests", "Interests")
+                        .WithMany("InterestUrls")
+                        .HasForeignKey("InterestsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Lab_3_Mini_API.Models.Persons", "Person")
-                        .WithMany("InterestLinks")
-                        .HasForeignKey("PersonId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Interest");
-
-                    b.Navigation("Person");
+                    b.Navigation("Interests");
                 });
 
             modelBuilder.Entity("Lab_3_Mini_API.Models.Interests", b =>
                 {
-                    b.Navigation("InterestLinks");
-                });
-
-            modelBuilder.Entity("Lab_3_Mini_API.Models.Persons", b =>
-                {
-                    b.Navigation("InterestLinks");
+                    b.Navigation("InterestUrls");
                 });
 #pragma warning restore 612, 618
         }

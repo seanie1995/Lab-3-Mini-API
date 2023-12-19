@@ -8,8 +8,8 @@ namespace Lab_3_Mini_API.Data
     {
         public DbSet<Persons> Persons { get; set; }
         public DbSet<Interests> Interests { get; set; }
-
-        public DbSet<InterestLink> InterestLink { get; set; }
+        public DbSet<InterestUrl> InterestUrls { get; set; }
+        
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
         {
         }

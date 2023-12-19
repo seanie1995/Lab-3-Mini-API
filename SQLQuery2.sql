@@ -1,0 +1,41 @@
+﻿---- Insert data into Interests table
+--INSERT INTO Interests (Name, Description)
+--VALUES
+--  ('Programming', 'The art of writing computer programs.'),
+--  ('Music', 'The expression of emotions through harmonies and melodies.'),
+--  ('Cooking', 'The practice of preparing and consuming food.'),
+--  ('Traveling', 'Exploring new places and experiencing different cultures.'),
+--  ('Photography', 'Capturing moments through the lens of a camera.'),
+--  ('Fitness', 'Maintaining a healthy and active lifestyle.'),
+--  ('Reading', 'Immersing oneself in the world of books and literature.'),
+--  ('Gaming', 'Playing electronic games for entertainment.'),
+--  ('Art', 'Expressing creativity through various forms.'),
+--  ('Science', 'The systematic study of the natural world and beyond.');
+
+---- Insert data into Persons table
+--INSERT INTO Persons (FirstName, LastName)
+--VALUES
+--  ('John', 'Doe'),
+--  ('Jane', 'Smith'),
+--  ('David', 'Johnson'),
+--  ('Emily', 'Williams'),
+--  ('Michael', 'Brown'),
+--  ('Sophia', 'Jones'),
+--  ('Daniel', 'Miller'),
+--  ('Olivia', 'Davis'),
+--  ('Matthew', 'Moore'),
+--  ('Emma', 'Anderson');
+
+---- Insert data into InterestsUrl table
+--INSERT INTO InterestUrl (InterestsId, Url)
+--VALUES
+--  (1, 'http://www.programmingworld.com'),
+--  (2, 'http://www.musiclovers.com'),
+--  (3, 'http://www.cookingdelights.com'),
+--  (4, 'http://www.travelershub.com'),
+--  (5, 'http://www.photographyexplore.com'),
+--  (6, 'http://www.fitnesslife.com'),
+--  (7, 'http://www.readingpassion.com'),
+--  (8, 'http://www.gamingrealm.com'),
+--  (9, 'http://www.artisticexpress.com'),
+--  (10, 'http://www.sciencewonders.com');
