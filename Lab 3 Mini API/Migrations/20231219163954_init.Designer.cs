@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Lab_3_Mini_API.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20231219141659_init")]
+    [Migration("20231219163954_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -101,6 +101,9 @@ namespace Lab_3_Mini_API.Migrations
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("phoneNumber")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
