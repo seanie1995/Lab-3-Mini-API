@@ -85,6 +85,8 @@ namespace Lab_3_Mini_API
 
             });
 
+            // Add new interest to specific person
+
             app.MapPost("/{lastName}/interests/{id}", (ApplicationContext context, string lastName, int id) =>
             {              
                 var person = context.Persons
