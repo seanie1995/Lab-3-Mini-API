@@ -37,26 +37,6 @@ namespace Lab_3_Mini_API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "InterestUrls",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Url = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    InterestsId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_InterestUrls", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_InterestUrls_Interests_InterestsId",
-                        column: x => x.InterestsId,
-                        principalTable: "Interests",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "InterestsPersons",
                 columns: table => new
                 {
@@ -80,6 +60,33 @@ namespace Lab_3_Mini_API.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "InterestUrls",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Url = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    InterestsId = table.Column<int>(type: "int", nullable: false),
+                    PersonsId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_InterestUrls", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_InterestUrls_Interests_InterestsId",
+                        column: x => x.InterestsId,
+                        principalTable: "Interests",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_InterestUrls_Persons_PersonsId",
+                        column: x => x.PersonsId,
+                        principalTable: "Persons",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_InterestsPersons_PersonsId",
                 table: "InterestsPersons",
@@ -89,6 +96,11 @@ namespace Lab_3_Mini_API.Migrations
                 name: "IX_InterestUrls_InterestsId",
                 table: "InterestUrls",
                 column: "InterestsId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_InterestUrls_PersonsId",
+                table: "InterestUrls",
+                column: "PersonsId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -100,10 +112,10 @@ namespace Lab_3_Mini_API.Migrations
                 name: "InterestUrls");
 
             migrationBuilder.DropTable(
-                name: "Persons");
+                name: "Interests");
 
             migrationBuilder.DropTable(
-                name: "Interests");
+                name: "Persons");
         }
     }
 }

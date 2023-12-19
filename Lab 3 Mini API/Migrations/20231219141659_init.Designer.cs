@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Lab_3_Mini_API.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20231218182315_init")]
+    [Migration("20231219141659_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -70,6 +70,9 @@ namespace Lab_3_Mini_API.Migrations
                     b.Property<int>("InterestsId")
                         .HasColumnType("int");
 
+                    b.Property<int>("PersonsId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Url")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -77,6 +80,8 @@ namespace Lab_3_Mini_API.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("InterestsId");
+
+                    b.HasIndex("PersonsId");
 
                     b.ToTable("InterestUrls");
                 });
@@ -125,7 +130,15 @@ namespace Lab_3_Mini_API.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Lab_3_Mini_API.Models.Persons", "Persons")
+                        .WithMany()
+                        .HasForeignKey("PersonsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Interests");
+
+                    b.Navigation("Persons");
                 });
 
             modelBuilder.Entity("Lab_3_Mini_API.Models.Interests", b =>

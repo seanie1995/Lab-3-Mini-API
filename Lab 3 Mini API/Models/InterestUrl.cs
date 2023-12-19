@@ -6,5 +6,7 @@
         public string Url { get; set; }
 
         public virtual Interests Interests { get; set; }
+
+        public virtual Persons Persons { get; set; }
     }
 }

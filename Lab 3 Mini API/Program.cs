@@ -24,11 +24,21 @@ namespace Lab_3_Mini_API
                 return Results.Json(context.Persons.Select(p => new {p.LastName, p.FirstName }).ToArray());
             });
 
+            app.MapGet("/AllLinks", (ApplicationContext context) =>
+            {
+                return Results.Json(context.InterestUrls.ToArray());
+            });
+
+            //app.MapGet("/AllLinks", (ApplicationContext context) =>
+            //{
+            //    return Results.Json(context.InterestUrls.Select(p => new { p.Id, p.Url }).ToArray());
+            //});
+
             app.MapGet("/AllInterests", (ApplicationContext context) =>
             {
                 var interests = context.Interests
                         .Include(p => p.InterestUrls)
-                        .Select(p => new { p.Name, p.Description, p.InterestUrls })
+                        .Select(p => new { p.Id, p.Name, p.Description, InterestUrls = p.InterestUrls.Select(p => new { p.Id, p.Url }) })
                         .ToArray();
 
                 if (interests == null)
@@ -45,7 +55,7 @@ namespace Lab_3_Mini_API
                 var interest = context.Persons
                         .Include(i => i.Interests)
                         .Where(i => i.LastName == lastName)
-                        .Select(i => i.Interests)
+                        .Select(i => new { i.FirstName, i.LastName, Interests = i.Interests.Select(i => new {i.Name, i.Description})})
                         .ToArray();
 
                 if (interest == null)
@@ -107,10 +117,36 @@ namespace Lab_3_Mini_API
                 return Results.StatusCode((int)HttpStatusCode.Created);
             });
 
-            //app.MapPost("/{lastName}/{interestId}/{newUrl}", (ApplicationContext context, string lastName, int interestId, string newUrl) =>
-            //{
-            //    var 
-            //});
+            app.MapPost("/{lastName}/{interestName}/addUrl", (ApplicationContext context, string lastName, string interestName, InterestUrl newUrl   ) =>
+            {
+                var person = context.Persons
+                    .Include(p => p.Interests)
+                    .SingleOrDefault(p => p.LastName == lastName);
+
+                if (person == null)
+                {
+                    return Results.NotFound();
+                }
+
+                var interest = context.Interests
+                        .Include(p => p.InterestUrls)
+                        .Where(p => p.Name == interestName)
+                        .SingleOrDefault();
+
+                if (interest == null)
+                {
+                    return Results.NotFound();
+                }
+
+                newUrl.Interests = interest;
+                newUrl.Persons = person;
+
+                interest.InterestUrls.Add(newUrl);
+                context.SaveChanges();
+
+                return Results.StatusCode((int)HttpStatusCode.Created);
+
+            });
 
             app.Run();
         }
