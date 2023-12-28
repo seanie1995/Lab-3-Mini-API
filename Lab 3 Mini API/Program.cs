@@ -1,5 +1,7 @@
 using Lab_3_Mini_API.Data;
+using Lab_3_Mini_API.Handlers;
 using Lab_3_Mini_API.Models;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using System.Net;
 
@@ -19,16 +21,15 @@ namespace Lab_3_Mini_API
 
             app.MapGet("/", () => "Hello World!");
              
-            app.MapGet("/persons", (ApplicationContext context) =>
-            {
-                return Results.Json(context.Persons.Select(p => new {p.Id, p.FirstName, p.LastName, p.phoneNumber, p.Interests.Count}).ToArray());
-            });
+            app.MapGet("/persons", PersonHandler.ListAllPersons);
+            app.MapGet("/{lastName}/links", UrlHandler.ListPersonLink);
+            app.MapGet("/{lastName}/interests", InterestHandler.ListPersonInterests);
 
+          
             app.MapGet("/links", (ApplicationContext context) =>
             {
                 return Results.Json(context.InterestUrls.ToArray());
             });        
-
             app.MapGet("/interests", (ApplicationContext context) =>
             {
                 var interests = context.Interests
@@ -44,44 +45,8 @@ namespace Lab_3_Mini_API
                 return Results.Json(interests);
                         
             });
-
-            app.MapGet("/{lastName}/interests", (ApplicationContext context, string lastName) =>
-            {
-                var interest = context.Persons
-                        .Include(i => i.Interests)
-                        .Where(i => i.LastName == lastName)
-                        .Select(i => new { i.FirstName, i.LastName, Interests = i.Interests.Select(i => new {i.Name, i.Description})})
-                        .ToArray();
-
-                if (interest == null)
-                {
-                    return Results.NotFound();
-                }
-
-                return Results.Json(interest);
-
-            });
-
-            app.MapGet("/{lastName}/links", (ApplicationContext context, string lastName) =>
-            {
-                var links = context.InterestUrls
-                        .Include(i => i.Interests)
-                            .ThenInclude(i => i.Persons)
-                        .Where(i => i.Interests.Persons.Any(i => i.LastName == lastName))
-                        .Select(i => i.Url)
-                        .ToArray();
-                      
-                if (links == null)
-                {
-                    return Results.NotFound();
-                }
-
-                return Results.Json(links);
-
-            });
-
-            // Add new interest to specific person
-
+         
+                            
             app.MapPost("/{lastName}/interests/{id}", (ApplicationContext context, string lastName, int id) =>
             {              
                 var person = context.Persons
