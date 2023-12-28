@@ -34,17 +34,24 @@ namespace Lab_3_Mini_API.Handlers
                 return Results.NotFound();
             }
 
-            if(string.IsNullOrEmpty(newInterest.Name) || string.IsNullOrEmpty(newInterest.Description))
+            if (person.Interests.Any(i => i.Name == newInterest.Name) || person.Interests.Any(i => i.Description == newInterest.Description))
+            {
+                return Results.Conflict("Interest already exists for this person");
+            }
+
+            if (string.IsNullOrEmpty(newInterest.Name) || string.IsNullOrEmpty(newInterest.Description))
             {
                 return Results.BadRequest(new { Message = "New interest needs to have both title and content" });
             }
-            context.Interests.Add(new Interests()
+            var interest = new Interests
             {
                 Name = newInterest.Name,
-                Description = newInterest.Description,        
-                Persons = newInterest.Persons
-            }); 
-                       
+                Description = newInterest.Description
+            };
+                     
+            person.Interests.Add(interest);
+            
+
             context.SaveChanges();
 
             return Results.StatusCode((int)HttpStatusCode.Created);

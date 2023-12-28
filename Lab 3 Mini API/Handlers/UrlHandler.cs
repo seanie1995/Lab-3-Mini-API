@@ -1,4 +1,5 @@
 ﻿using Lab_3_Mini_API.Data;
+using Lab_3_Mini_API.Models;
 using Lab_3_Mini_API.Models.DTO;
 using Lab_3_Mini_API.Models.ViewModels;
 using Microsoft.EntityFrameworkCore;
@@ -23,19 +24,19 @@ namespace Lab_3_Mini_API.Handlers
 
         public static IResult AddNewLink(ApplicationContext context, string lastName, string interestName, UrlDto url)
         {
-            var person = context.Persons
+            var person = context.Persons                  
                     .Include(p => p.Interests)
                     .FirstOrDefault(p => p.LastName == lastName);
 
-            if (person == null)
+            if (person == null && person.Interests.Any(x => x.Name != interestName))
             {
                 return Results.NotFound();
             }
 
-            var interest = context.Interests
+            var interest = context.Interests                  
                     .Include(p => p.InterestUrls)
                     .Where(p => p.Name == interestName)
-                    .SingleOrDefault();
+                    .FirstOrDefault();
 
             if (interest == null)
             {
@@ -47,13 +48,15 @@ namespace Lab_3_Mini_API.Handlers
                 return Results.BadRequest(new { Message = "No link was provided" });
             }
 
-            context.InterestUrls.Add(new Models.InterestUrl()
+            var newLink = new InterestUrl
             {
                 Url = url.Url,
                 Persons = person,
                 Interests = interest
-            });
-
+            };
+          
+            interest.InterestUrls.Add(newLink);
+                             
             context.SaveChanges();
 
             return Results.StatusCode((int)HttpStatusCode.Created);
