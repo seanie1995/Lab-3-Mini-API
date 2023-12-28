@@ -19,17 +19,17 @@ namespace Lab_3_Mini_API
 
             app.MapGet("/", () => "Hello World!");
              
-            app.MapGet("/AllPersons", (ApplicationContext context) =>
+            app.MapGet("/persons", (ApplicationContext context) =>
             {
                 return Results.Json(context.Persons.Select(p => new {p.Id, p.FirstName, p.LastName, p.phoneNumber, p.Interests.Count}).ToArray());
             });
 
-            app.MapGet("/AllLinks", (ApplicationContext context) =>
+            app.MapGet("/links", (ApplicationContext context) =>
             {
                 return Results.Json(context.InterestUrls.ToArray());
             });        
 
-            app.MapGet("/AllInterests", (ApplicationContext context) =>
+            app.MapGet("/interests", (ApplicationContext context) =>
             {
                 var interests = context.Interests
                         .Include(p => p.InterestUrls)
@@ -114,7 +114,7 @@ namespace Lab_3_Mini_API
                 return Results.StatusCode((int)HttpStatusCode.Created);
             });
 
-            app.MapPost("/{lastName}/{interestName}/addUrl", (ApplicationContext context, string lastName, string interestName, InterestUrl newUrl   ) =>
+            app.MapPost("/{lastName}/{interestName}/newUrl", (ApplicationContext context, string lastName, string interestName, InterestUrl newUrl   ) =>
             {
                 var person = context.Persons
                     .Include(p => p.Interests)
