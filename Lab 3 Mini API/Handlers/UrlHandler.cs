@@ -18,7 +18,7 @@ namespace Lab_3_Mini_API.Handlers
                 {
                     Url = x.Url,
                 }).ToArray();
-            return Results.Json(result);          
+            return Results.Json(result);
         }
 
         public static IResult AddNewLink(ApplicationContext context, string lastName, string interestName, UrlDto url)
@@ -69,7 +69,7 @@ namespace Lab_3_Mini_API.Handlers
                 }).ToArray();
 
             return Results.Json(result);
-
+            
         }
     }
 }
