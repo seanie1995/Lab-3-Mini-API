@@ -41,3 +41,9 @@ https://localhost:xxxx/persons/1/interests/1/links
 ### POST existing interest to an existing person
 
 https://localhost:xxxx/persons/1/interests/1
+
+## ER Diagram and Class UML
+
+![MiniApiER](https://github.com/seanie1995/Lab-3-Mini-API/assets/119659530/b0fffb94-6fca-4440-9c43-44b2103c90fc)
+
+![MiniApiUML drawio](https://github.com/seanie1995/Lab-3-Mini-API/assets/119659530/45ccb3e0-02b8-43d5-8b49-53c1ec42af68)
