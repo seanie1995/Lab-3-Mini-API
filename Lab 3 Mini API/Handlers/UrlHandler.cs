@@ -13,8 +13,8 @@ namespace Lab_3_Mini_API.Handlers
         {
             UrlViewModels[] result =
                 context.InterestUrls
-                .Include(i => i.Interest.Persons)
-                .Where(i => i.Person.LastName == lastName)
+                .Include(i => i.Interests.Persons)
+                .Where(i => i.Persons.LastName == lastName)
                 .Select(x => new UrlViewModels()
                 {
                     Url = x.Url,
@@ -51,8 +51,8 @@ namespace Lab_3_Mini_API.Handlers
             var newLink = new InterestUrl
             {
                 Url = url.Url,
-                Person = person,
-                Interest = interest
+                Persons = person,
+                Interests = interest
             };
           
             interest.InterestUrls.Add(newLink);
