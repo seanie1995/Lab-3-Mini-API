@@ -7,12 +7,12 @@ namespace Lab_3_Mini_API.Handlers
 {
     public class InterestHandler
     {
-        public static IResult ListPersonInterests(ApplicationContext context, string lastName)
+        public static IResult ListPersonInterests(ApplicationContext context, int id)
         {
             InterestsViewModel[] result =
                 context.Interests
                 .Include(x => x.Persons)
-                .Where(x => x.Persons.Any(x => x.LastName == lastName))
+                .Where(x => x.Persons.Any(x => x.Id == id))
                 .Select(x => new InterestsViewModel()
                 {
                     name = x.Name,

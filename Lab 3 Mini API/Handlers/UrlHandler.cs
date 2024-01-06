@@ -9,12 +9,12 @@ namespace Lab_3_Mini_API.Handlers
 {
     public class UrlHandler
     {
-        public static IResult ListPersonLink(ApplicationContext context, string lastName)
+        public static IResult ListPersonLink(ApplicationContext context, int id)
         {
             UrlViewModels[] result =
                 context.InterestUrls
                 .Include(i => i.Interests.Persons)
-                .Where(i => i.Persons.LastName == lastName)
+                .Where(i => i.Persons.Id == id)
                 .Select(x => new UrlViewModels()
                 {
                     Url = x.Url,
@@ -22,20 +22,20 @@ namespace Lab_3_Mini_API.Handlers
             return Results.Json(result);
         }
 
-        public static IResult AddNewLink(ApplicationContext context, string lastName, string interestName, UrlDto url)
+        public static IResult AddNewLink(ApplicationContext context, int personId, int interestId, UrlDto url)
         {
             var person = context.Persons                  
                     .Include(p => p.Interests)
-                    .FirstOrDefault(p => p.LastName == lastName);
+                    .FirstOrDefault(p => p.Id == personId);
 
-            if (person == null && person.Interests.Any(x => x.Name != interestName))
+            if (person == null && person.Interests.Any(x => x.Id != interestId))
             {
                 return Results.NotFound();
             }
 
             var interest = context.Interests                  
                     .Include(p => p.InterestUrls)
-                    .Where(p => p.Name == interestName)
+                    .Where(p => p.Id == interestId)
                     .FirstOrDefault();
 
             if (interest == null)

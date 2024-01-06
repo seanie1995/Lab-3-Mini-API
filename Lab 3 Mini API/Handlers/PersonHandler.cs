@@ -24,11 +24,11 @@ namespace Lab_3_Mini_API.Handlers
             //return Results.Json(context.Persons.Select(p => new { p.Id, p.FirstName, p.LastName, p.phoneNumber, p.Interests.Count }).ToArray());
         }
 
-        public static IResult AddNewInterest(ApplicationContext context, string lastName, InterestDto newInterest)
+        public static IResult AddNewInterest(ApplicationContext context, int id, InterestDto newInterest)
         {
             var person = context.Persons
                     .Include(p => p.Interests)
-                    .FirstOrDefault(p => p.LastName == lastName);
+                    .FirstOrDefault(p => p.Id == id);
 
             if (person == null)
             {
