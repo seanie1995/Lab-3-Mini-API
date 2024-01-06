@@ -46,5 +46,8 @@ https://localhost:xxxx/persons/1/interests/1
 
 ![MiniApiER](https://github.com/seanie1995/Lab-3-Mini-API/assets/119659530/b0fffb94-6fca-4440-9c43-44b2103c90fc)
 
-![MiniApiUML drawio(1)](https://github.com/seanie1995/Lab-3-Mini-API/assets/119659530/96670844-68d0-49d8-8295-3a5d704d7b88)
+
+
+![MiniApiUML drawio(2)](https://github.com/seanie1995/Lab-3-Mini-API/assets/119659530/0be67761-eeeb-44e3-95e0-827b898cf68a)
+
 
