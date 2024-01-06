@@ -22,14 +22,15 @@ namespace Lab_3_Mini_API
             app.MapGet("/", () => "Hello World!");
              
             app.MapGet("/persons", PersonHandler.ListAllPersons);
-            app.MapGet("/persons/{id}/links", UrlHandler.ListPersonLink);
+            app.MapGet("/persons/{id}/interests/links", UrlHandler.ListPersonLink);
             app.MapGet("/persons/{id}/interests", InterestHandler.ListPersonInterests);
 
             app.MapGet("/links", UrlHandler.ListAllLinks);
             app.MapGet("/interests", InterestHandler.ListAllInterests);
             
-            app.MapPost("/{id}/interests", PersonHandler.AddNewInterest);
+            app.MapPost("/persons/{id}/interests", PersonHandler.AddNewInterest);
             app.MapPost("/persons/{personId}/interests/{interestId}/links", UrlHandler.AddNewLink);
+            app.MapPost("/persons/{personId}/interests/{interestId}", PersonHandler.AddExistingInterest);
                                                        
             app.Run();
         }

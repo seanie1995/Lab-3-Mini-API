@@ -35,9 +35,12 @@ namespace Lab_3_Mini_API.Handlers
                 return Results.NotFound();
             }
 
-            if (person.Interests.Any(i => i.Name == newInterest.Name) || person.Interests.Any(i => i.Description == newInterest.Description))
+            var allInterests = context.Interests        
+                .ToArray();
+
+            if (allInterests.Any(i => i.Name == newInterest.Name))
             {
-                return Results.Conflict("Interest already exists for this person");
+                return Results.Conflict("Interest already exists in the database");
             }
 
             if (string.IsNullOrEmpty(newInterest.Name) || string.IsNullOrEmpty(newInterest.Description))
@@ -52,6 +55,35 @@ namespace Lab_3_Mini_API.Handlers
                      
             person.Interests.Add(interest);
             
+
+            context.SaveChanges();
+
+            return Results.StatusCode((int)HttpStatusCode.Created);
+        }
+
+        public static IResult AddExistingInterest(ApplicationContext context, int personId, int interestId)
+        {
+            var person = context.Persons
+                .Where(p => p.Id == personId)
+                .Include(p => p.Interests)
+                .SingleOrDefault();
+
+            if (person == null)
+            {
+                return Results.Conflict("Person not found");
+            }
+
+            var interest = context.Interests
+                .Where(i => i.Id == interestId)
+                .Include(p => p.Persons)
+                .SingleOrDefault();
+
+            if (interest == null)
+            {
+                return Results.Conflict("Interest not found");
+            }
+
+            person.Interests.Add(interest);
 
             context.SaveChanges();
 
