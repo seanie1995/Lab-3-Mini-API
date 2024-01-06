@@ -43,7 +43,7 @@ namespace Lab_3_Mini_API.Handlers
             {
                 return Results.BadRequest(new { Message = "New interest needs to have both title and content" });
             }
-            var interest = new Interests
+            var interest = new Interest
             {
                 Name = newInterest.Name,
                 Description = newInterest.Description
