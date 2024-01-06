@@ -16,7 +16,8 @@ namespace Lab_3_Mini_API.Handlers
                 .Select(x => new PersonViewModel()
                 {
                     firstName = x.FirstName,
-                    lastName = x.LastName,
+                    lastName = x.LastName,         
+                    phoneNumber = x.PhoneNumber,
                 }).ToArray();
             return Results.Json(result);
 

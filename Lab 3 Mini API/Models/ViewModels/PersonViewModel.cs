@@ -4,6 +4,8 @@
     {
         public string firstName { get; set; }
         public string lastName { get; set; }
+
+        public int phoneNumber { get; set; }
         
         //public int phoneNumber { get; set; }
         //public UrlViewModels[] urls { get; set; }
