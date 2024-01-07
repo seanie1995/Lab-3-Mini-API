@@ -32,13 +32,19 @@ https://localhost:xxxx/persons1/interests
 
 ### POST new interest to a specific person
 
+Creates a new interest in the database and attaches it to a person. This call takes a JSON object
+
 https://localhost:xxxx/persons/1/interest
 
 ### POST new link connected to a specific person's interest
 
+Creates new link in the database and connects it to a specific person's interest. This call takes a JSON object
+
 https://localhost:xxxx/persons/1/interests/1/links
 
 ### POST existing interest to an existing person
+
+Connects an existing interest to an existing person. Call does not take in a JSON object. User uses specific person's and interest's IDs in the endpoints to connect them.
 
 https://localhost:xxxx/persons/1/interests/1
 
