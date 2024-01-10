@@ -68,6 +68,7 @@ namespace Lab_3_Mini_API.Handlers
                  context.InterestUrls
                 .Select(p => new UrlViewModels
                 {
+                    Id = p.Id,
                     Url = p.Url,
                 }).ToArray();
 

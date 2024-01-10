@@ -15,6 +15,7 @@ namespace Lab_3_Mini_API.Handlers
                 .Where(x => x.Persons.Any(x => x.Id == id))
                 .Select(x => new InterestsViewModel()
                 {
+                    
                     name = x.Name,
                     description = x.Description,
                 }).ToArray();
@@ -34,6 +35,7 @@ namespace Lab_3_Mini_API.Handlers
                 context.Interests
                 .Select(x => new InterestsViewModel()
                 {
+                    Id = x.Id,
                     name = x.Name,
                     description = x.Description
                 }).ToArray();

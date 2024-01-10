@@ -15,6 +15,7 @@ namespace Lab_3_Mini_API.Handlers
                 context.Persons
                 .Select(x => new PersonViewModel()
                 {
+                    Id = x.Id,
                     firstName = x.FirstName,
                     lastName = x.LastName,         
                     phoneNumber = x.PhoneNumber,
